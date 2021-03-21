@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
-import { availableManual, availableMachines } from "../../data";
+import {
+  manualMachines,
+  availableMachines,
+  allManualOptions,
+} from "../../data";
 
 export type AutomaticMachine = "sewingMachine" | "pneumaticHammer";
-type ManualMachine = "hand" | "hammer" | "drill";
+export type ManualMachine = "hammer" | "drill";
 export type Machine = AutomaticMachine | ManualMachine;
 
 interface MachinesState {
@@ -47,10 +51,16 @@ export const machinesSlice = createSlice({
         }
       }
     },
+    resetMachines: (state) => {
+      state.ownedManual = [];
+      state.ownedAutomatic = [];
+      localStorage.removeItem("manualMachines");
+      localStorage.removeItem("automaticMachines");
+    },
   },
 });
 
-export const { buy } = machinesSlice.actions;
+export const { buy, resetMachines } = machinesSlice.actions;
 
 export const selectOwnedManual = (state: RootState) =>
   state.machines.ownedManual;
@@ -58,9 +68,9 @@ export const selectOwnedAutomatic = (state: RootState) =>
   state.machines.ownedAutomatic;
 
 export const selectMostPowerfulManual = (state: RootState) => {
-  let mostPowerful: ManualMachine = "hand";
+  let mostPowerful: ManualMachine | "hand" = "hand";
   state.machines.ownedManual.forEach((machine) => {
-    if (availableManual[machine].power > availableManual[mostPowerful].power) {
+    if (manualMachines[machine].power > allManualOptions[mostPowerful].power) {
       mostPowerful = machine;
     }
   });
@@ -73,8 +83,5 @@ export const selectCanBeBought = (
 ) => {
   return points > availableMachines[machine].price ? true : false;
 };
-// export const isOwned = (state: RootState, machine: Machine) => {
-//   return state.machines.owned.includes(machine) ? true : false;
-// };
 
 export default machinesSlice.reducer;

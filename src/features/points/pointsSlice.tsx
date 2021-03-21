@@ -15,23 +15,19 @@ export const pointsSlice = createSlice({
   name: "points",
   initialState,
   reducers: {
-    increment: (state, { payload }) => {
-      const newValue = state.value + parseInt(payload);
+    increment: (state, action: PayloadAction<number>) => {
+      const newValue = state.value + action.payload;
       state.value = newValue;
       localStorage.setItem("points", newValue.toString());
     },
-    reset: (state) => {
+    resetPoints: (state) => {
       state.value = 0;
       localStorage.removeItem("points");
-    },
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
     },
   },
 });
 
-export const { increment, reset, incrementByAmount } = pointsSlice.actions;
+export const { increment, resetPoints } = pointsSlice.actions;
 
 export const selectPoints = (state: RootState) => state.points.value;
 

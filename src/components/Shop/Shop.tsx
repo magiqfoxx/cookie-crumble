@@ -1,27 +1,27 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
 
-import { availableMachines } from "../../data";
 import { selectPoints } from "../../features/points/pointsSlice";
 import {
   Machine,
   buy,
   selectOwnedManual,
   selectOwnedAutomatic,
+  AutomaticMachine,
+  ManualMachine,
 } from "../../features/machines/machinesSlice";
-import Card from "../common/Card";
-import Hammer from "../../assets/hammer.png";
-import SewingMachine from "../../assets/sewingMachine.png";
-import Drill from "../../assets/drill.png";
-import PneumaticHammer from "../../assets/pneumaticHammer.png";
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 2rem;
-  padding: 1rem;
-`;
+import {
+  automaticMachineNames,
+  automaticMachines,
+  availableMachines,
+  manualMachines,
+  manualMachineNames,
+} from "../../data";
+
+import Card from "../common/Card";
+import Main from "../common/Main";
+import Grid from "../common/Grid";
 
 const Shop = () => {
   const points = useSelector(selectPoints);
@@ -34,66 +34,48 @@ const Shop = () => {
       : alert("Too expensive!");
   };
   return (
-    <>
+    <Main>
       <h2>Manual Labour</h2>
       <p>Buy to get more points per click</p>
-      <Grid>
-        <Card
-          selected={
-            !ownedManual.includes("hammer") &&
-            availableMachines["hammer"].price <= points
-          }
-          active={ownedManual.includes("hammer")}
-          img={Hammer}
-          onClick={() => buyMachine("hammer")}
-          title=""
-        >
-          <h3>Hammer</h3>
-          <h4>Price: {availableMachines["hammer"].price}</h4>
-        </Card>
-
-        <Card
-          selected={
-            !ownedManual.includes("drill") &&
-            availableMachines["drill"].price <= points
-          }
-          active={ownedManual.includes("drill")}
-          img={Drill}
-          onClick={() => buyMachine("drill")}
-        >
-          <h3> Drill</h3>
-          <h4>Price: {availableMachines["drill"].price}</h4>
-        </Card>
+      <Grid columns={2}>
+        {manualMachineNames.map((machineName: ManualMachine) => {
+          return (
+            <Card
+              selected={
+                !ownedManual.includes(machineName) &&
+                manualMachines[machineName].price <= points
+              }
+              active={ownedManual.includes(machineName)}
+              img={manualMachines[machineName].img}
+              onClick={() => buyMachine(machineName)}
+            >
+              <h3>{manualMachines[machineName].name}</h3>
+              <h4>Price: {manualMachines[machineName].price}</h4>
+            </Card>
+          );
+        })}
       </Grid>
       <h2>Automation</h2>
       <p>Buy to get free points every 10 seconds</p>
-      <Grid>
-        <Card
-          selected={
-            !ownedAutomatic.includes("sewingMachine") &&
-            availableMachines["sewingMachine"].price <= points
-          }
-          active={ownedAutomatic.includes("sewingMachine")}
-          img={SewingMachine}
-          onClick={() => buyMachine("sewingMachine")}
-        >
-          <h3> Sewing Machine</h3>
-          <h4>Price: {availableMachines["sewingMachine"].price}</h4>
-        </Card>
-        <Card
-          selected={
-            !ownedAutomatic.includes("pneumaticHammer") &&
-            availableMachines["pneumaticHammer"].price <= points
-          }
-          active={ownedAutomatic.includes("pneumaticHammer")}
-          img={PneumaticHammer}
-          onClick={() => buyMachine("pneumaticHammer")}
-        >
-          <h3>Pneumatic Hammer</h3>
-          <h4>Price: {availableMachines["pneumaticHammer"].price}</h4>
-        </Card>
+      <Grid columns={2}>
+        {automaticMachineNames.map((machineName: AutomaticMachine) => {
+          return (
+            <Card
+              selected={
+                !ownedAutomatic.includes(machineName) &&
+                automaticMachines[machineName].price <= points
+              }
+              active={ownedAutomatic.includes(machineName)}
+              img={automaticMachines[machineName].img}
+              onClick={() => buyMachine(machineName)}
+            >
+              <h3>{automaticMachines[machineName].name}</h3>
+              <h4>Price: {automaticMachines[machineName].price}</h4>
+            </Card>
+          );
+        })}
       </Grid>
-    </>
+    </Main>
   );
 };
 
