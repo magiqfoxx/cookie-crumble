@@ -1,4 +1,4 @@
-export const getLevel = (points) => {
+export const getLevel = (points: number) => {
   if (points <= 10) {
     return 1;
   } else {
