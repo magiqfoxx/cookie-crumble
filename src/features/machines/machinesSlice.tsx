@@ -3,7 +3,12 @@ import { RootState } from "../../store";
 
 import { availableMachines } from "../../data";
 
-export type Machine = "hammer" | "sewingMachine" | "drill" | "pneumaticHammer";
+export type Machine =
+  | "hand"
+  | "hammer"
+  | "sewingMachine"
+  | "drill"
+  | "pneumaticHammer";
 
 interface MachinesState {
   owned: Array<Machine>;
@@ -33,6 +38,17 @@ export const machinesSlice = createSlice({
 export const { buy } = machinesSlice.actions;
 
 export const selectOwned = (state: RootState) => state.machines.owned;
+export const selectMostPowerfulOwned = (state: RootState) => {
+  let mostPowerful: Machine = "hand";
+  state.machines.owned.forEach((machine) => {
+    if (
+      availableMachines[machine].power > availableMachines[mostPowerful].power
+    ) {
+      mostPowerful = machine;
+    }
+  });
+  return mostPowerful;
+};
 export const selectCanBeBought = (
   state: RootState,
   machine: Machine,

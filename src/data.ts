@@ -1,4 +1,8 @@
 export const availableMachines = {
+    hand: {
+        price: 0,
+        power: 0
+    },
     hammer: {
         price: 50,
         power: 10, //per 10s
