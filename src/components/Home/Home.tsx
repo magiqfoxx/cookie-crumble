@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <Main>
-      <Title>This is how the cookie crumbles!</Title>
+      <Title>That's how the cookie crumbles!</Title>
       <CookieButton
         onClick={() =>
           dispatch(increment(allManualOptions[mostPowerfulManual].power))
