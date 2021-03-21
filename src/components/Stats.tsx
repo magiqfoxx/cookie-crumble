@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { getLevel } from "../helpers";
 import { selectPoints } from "../features/points/pointsSlice";
@@ -10,7 +10,7 @@ const Stats = () => {
   return (
     <span>
       <span>{points} pts </span>
-      <span>Level{getLevel(points)}</span>
+      <span>Level {getLevel(points)}</span>
     </span>
   );
 };

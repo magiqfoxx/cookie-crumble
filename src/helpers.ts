@@ -1,4 +1,4 @@
-import { Machine } from "./features/machines/machinesSlice"
+import { AutomaticMachine } from "./features/machines/machinesSlice"
 import { availableMachines } from "./data";
 
 export const getLevel = (points: number) => {
@@ -9,7 +9,7 @@ export const getLevel = (points: number) => {
   }
 };
 
-export const getTotalPower = (owned: Machine[]) => {
+export const getTotalPower = (owned: AutomaticMachine[]) => {
   let power = 0;
   owned.forEach(machine => {
     power += availableMachines[machine].power

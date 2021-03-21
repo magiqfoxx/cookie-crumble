@@ -1,22 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
-import { availableMachines } from "../../data";
+import { availableManual, availableMachines } from "../../data";
 
-export type Machine =
-  | "hand"
-  | "hammer"
-  | "sewingMachine"
-  | "drill"
-  | "pneumaticHammer";
+export type AutomaticMachine = "sewingMachine" | "pneumaticHammer";
+type ManualMachine = "hand" | "hammer" | "drill";
+export type Machine = AutomaticMachine | ManualMachine;
 
 interface MachinesState {
-  owned: Array<Machine>;
+  ownedManual: Array<ManualMachine>;
+  ownedAutomatic: Array<AutomaticMachine>;
 }
 
 const initialState: MachinesState = {
-  owned: localStorage.getItem("machines")
-    ? JSON.parse(localStorage.getItem("machines")!)
+  ownedManual: localStorage.getItem("manualMachines")
+    ? JSON.parse(localStorage.getItem("manualMachines")!)
+    : [],
+  ownedAutomatic: localStorage.getItem("automaticMachines")
+    ? JSON.parse(localStorage.getItem("automaticMachines")!)
     : [],
 };
 
@@ -24,26 +25,42 @@ export const machinesSlice = createSlice({
   name: "machines",
   initialState,
   reducers: {
-    buy: (state, { payload }: { payload: Machine }) => {
-      if (!state.owned.includes(payload)) {
-        const newMachineList = [...state.owned, payload];
-        state.owned = newMachineList;
-        localStorage.setItem("machines", JSON.stringify(newMachineList));
+    buy: (
+      state,
+      { payload }: { payload: ManualMachine | AutomaticMachine }
+    ) => {
+      if (payload === "sewingMachine" || payload === "pneumaticHammer") {
+        //automatic
+        if (!state.ownedAutomatic.includes(payload)) {
+          const newAutomaticList = [...state.ownedAutomatic, payload];
+          state.ownedAutomatic = newAutomaticList;
+          localStorage.setItem(
+            "automaticMachines",
+            JSON.stringify(newAutomaticList)
+          );
+        }
+      } else {
+        if (!state.ownedManual.includes(payload)) {
+          const newManualList = [...state.ownedManual, payload];
+          state.ownedManual = newManualList;
+          localStorage.setItem("manualMachines", JSON.stringify(newManualList));
+        }
       }
     },
   },
-  extraReducers: {},
 });
 
 export const { buy } = machinesSlice.actions;
 
-export const selectOwned = (state: RootState) => state.machines.owned;
-export const selectMostPowerfulOwned = (state: RootState) => {
-  let mostPowerful: Machine = "hand";
-  state.machines.owned.forEach((machine) => {
-    if (
-      availableMachines[machine].power > availableMachines[mostPowerful].power
-    ) {
+export const selectOwnedManual = (state: RootState) =>
+  state.machines.ownedManual;
+export const selectOwnedAutomatic = (state: RootState) =>
+  state.machines.ownedAutomatic;
+
+export const selectMostPowerfulManual = (state: RootState) => {
+  let mostPowerful: ManualMachine = "hand";
+  state.machines.ownedManual.forEach((machine) => {
+    if (availableManual[machine].power > availableManual[mostPowerful].power) {
       mostPowerful = machine;
     }
   });
@@ -56,8 +73,8 @@ export const selectCanBeBought = (
 ) => {
   return points > availableMachines[machine].price ? true : false;
 };
-export const isOwned = (state: RootState, machine: Machine) => {
-  return state.machines.owned.includes(machine) ? true : false;
-};
+// export const isOwned = (state: RootState, machine: Machine) => {
+//   return state.machines.owned.includes(machine) ? true : false;
+// };
 
 export default machinesSlice.reducer;

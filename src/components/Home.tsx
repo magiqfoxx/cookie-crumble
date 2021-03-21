@@ -2,10 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { selectMostPowerfulOwned } from "../features/machines/machinesSlice";
+import { selectMostPowerfulManual } from "../features/machines/machinesSlice";
 import { increment, reset } from "../features/points/pointsSlice";
 
 import CookieImg from "../assets/cookie.png";
+import { availableManual } from "../data";
 
 const cursors = {
   hand: "cursors/hand.png",
@@ -29,6 +30,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   h2 {
     margin: 1rem auto;
   }
@@ -36,16 +38,18 @@ const Main = styled.main`
 
 const Home = () => {
   const dispatch = useDispatch();
-  const mostPowerfulOwned = useSelector(selectMostPowerfulOwned);
+  const mostPowerfulManual = useSelector(selectMostPowerfulManual);
 
   return (
     <Main>
       <h2>This is how the cookie crumbles!</h2>
       <Button
-        onClick={() => dispatch(increment(1))}
-        cursor={cursors[mostPowerfulOwned]}
+        onClick={() =>
+          dispatch(increment(availableManual[mostPowerfulManual].power))
+        }
+        cursor={cursors[mostPowerfulManual]}
       >
-        <img src={CookieImg} alt="{mostPowerfulOwned}" />
+        <img src={CookieImg} alt="{mostPowerfulManual}" />
         <Text>Click</Text>
       </Button>
       <button onClick={() => dispatch(reset())}>Reset</button>

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import "./App.css";
 
 import { getTotalPower } from "../helpers";
-import { selectOwned } from "../features/machines/machinesSlice";
+import { selectOwnedAutomatic } from "../features/machines/machinesSlice";
 import Home from "./Home";
 import Achievements from "./Achievements/Achievements";
 import Shop from "./Shop";
@@ -43,20 +43,19 @@ const Header = styled.header`
 
 export interface AppProps {}
 
-const App: React.SFC<AppProps> = () => {
-  const owned = useSelector(selectOwned);
+const App: React.FunctionComponent<AppProps> = () => {
+  const ownedAutomatic = useSelector(selectOwnedAutomatic);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const machinePoints = setInterval(() => {
-      const totalPower = getTotalPower(owned);
+      const totalPower = getTotalPower(ownedAutomatic);
       dispatch(increment(totalPower));
-      console.log("hello");
     }, 10000);
     return () => {
       clearInterval(machinePoints);
     };
-  }, [owned, dispatch]);
+  }, [ownedAutomatic, dispatch]);
   return (
     <Router>
       <div>
