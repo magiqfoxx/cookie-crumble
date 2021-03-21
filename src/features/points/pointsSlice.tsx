@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
+import { fetchData } from "../../utils";
 
 interface PointsState {
   value: number;
@@ -28,6 +29,18 @@ export const pointsSlice = createSlice({
 });
 
 export const { increment, resetPoints } = pointsSlice.actions;
+
+export const clickCountAsync = async (click_count: number) => {
+  let response = await fetchData(
+    `http://${process.env.REACT_APP_HOST}/api/v1/progress?click_count=${click_count}`,
+    "POST"
+  );
+  if (response.error) {
+    console.log(response.error);
+  } else {
+    alert("success!");
+  }
+};
 
 export const selectPoints = (state: RootState) => state.points.value;
 
