@@ -33,13 +33,17 @@ const App: React.FunctionComponent<AppProps> = () => {
         <Nav>
           <Ul>
             <MenuItem>
-              <StyledLink to="/">Home</StyledLink>
+              <StyledLink to={`${process.env.PUBLIC_URL}/`}>Home</StyledLink>
             </MenuItem>
             <MenuItem>
-              <StyledLink to="/achievements">Achievements</StyledLink>
+              <StyledLink to={`${process.env.PUBLIC_URL}/achievements`}>
+                Achievements
+              </StyledLink>
             </MenuItem>
             <MenuItem>
-              <StyledLink to="/shop">Shop</StyledLink>
+              <StyledLink to={`${process.env.PUBLIC_URL}/shop`}>
+                Shop
+              </StyledLink>
             </MenuItem>
           </Ul>
         </Nav>
@@ -47,13 +51,13 @@ const App: React.FunctionComponent<AppProps> = () => {
       </Header>
 
       <Switch>
-        <Route exact path="/">
+        <Route exact path={`${process.env.PUBLIC_URL}/`}>
           <Home />
         </Route>
-        <Route path="/achievements">
+        <Route path={`${process.env.PUBLIC_URL}/achievements`}>
           <Achievements />
         </Route>
-        <Route path="/shop">
+        <Route path={`${process.env.PUBLIC_URL}/shop`}>
           <Shop />
         </Route>
       </Switch>
