@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.js": "/cookie-crumble/static/js/main.fc8a51c9.chunk.js",
+    "main.js.map": "/cookie-crumble/static/js/main.fc8a51c9.chunk.js.map",
+    "runtime-main.js": "/cookie-crumble/static/js/runtime-main.6dc6fe73.js",
+    "runtime-main.js.map": "/cookie-crumble/static/js/runtime-main.6dc6fe73.js.map",
+    "static/js/2.f1959755.chunk.js": "/cookie-crumble/static/js/2.f1959755.chunk.js",
+    "static/js/2.f1959755.chunk.js.map": "/cookie-crumble/static/js/2.f1959755.chunk.js.map",
+    "index.html": "/cookie-crumble/index.html",
+    "static/js/2.f1959755.chunk.js.LICENSE.txt": "/cookie-crumble/static/js/2.f1959755.chunk.js.LICENSE.txt",
+    "static/media/100.92f6e543.png": "/cookie-crumble/static/media/100.92f6e543.png",
+    "static/media/5.36ae9f54.png": "/cookie-crumble/static/media/5.36ae9f54.png",
+    "static/media/cookie.fe9d2875.png": "/cookie-crumble/static/media/cookie.fe9d2875.png",
+    "static/media/drill.51808fa9.png": "/cookie-crumble/static/media/drill.51808fa9.png",
+    "static/media/hammer.b018cad8.png": "/cookie-crumble/static/media/hammer.b018cad8.png",
+    "static/media/sewingMachine.18abaea1.png": "/cookie-crumble/static/media/sewingMachine.18abaea1.png",
+    "static/media/start.69f38ff9.png": "/cookie-crumble/static/media/start.69f38ff9.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6dc6fe73.js",
+    "static/js/2.f1959755.chunk.js",
+    "static/js/main.fc8a51c9.chunk.js"
+  ]
+}
