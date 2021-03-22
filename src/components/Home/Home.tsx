@@ -39,7 +39,7 @@ const Home = () => {
         }
         cursor={cursors[mostPowerfulManual]}
       >
-        <img src={CookieImg} alt="{mostPowerfulManual}" />
+        <img src={CookieImg} alt="big ol' cookie" />
         <HiddenText>Click</HiddenText>
       </CookieButton>
       <Button onClick={resetGame}>Reset game</Button>
